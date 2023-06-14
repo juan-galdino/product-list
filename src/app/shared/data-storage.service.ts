@@ -15,9 +15,9 @@ export class DataStorageService {
     return this.http.get(environment.API_URL)
       .pipe(
         map(products => {
-          for(let key in products) {
-            return products[key]
-          }
+          for (let value of Object.values(products)) {
+            return value
+          }   
         }),
         tap(products => this.productListService.products = products)      
       )
