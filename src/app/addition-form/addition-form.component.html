@@ -1,1 +1,5 @@
-<p>addition-form works!</p>
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label for="productName">Escreva qual produto armazenar: </label>
+  <input type="text" name="productName" id="productName" ngModel required />
+  <button [disabled]="!f.valid">Salvar</button>
+</form>

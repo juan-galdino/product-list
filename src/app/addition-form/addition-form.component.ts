@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ProductListService } from '../product-list/product-list.service';
 
 @Component({
   selector: 'app-addition-form',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./addition-form.component.css']
 })
 export class AdditionFormComponent {
+  @ViewChild('f') productForm: NgForm
 
+  constructor(private productListService: ProductListService){}
+  
+  onSubmit() {
+    let product: string = this.productForm.controls.productName.value
+    this.productListService.updateProducts(product)
+  }
 }
