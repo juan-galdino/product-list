@@ -16,13 +16,9 @@ export class DataStorageService {
   fetchProducts() {
     return this.http.get(environment.API_URL)
       .pipe(
-<<<<<<< HEAD
-        tap((products: string[]) => this.productListService.products = products)      
-=======
         tap((products: string[]) => {
           this.productListService.products = products}
         )      
->>>>>>> development
       )
   }
 }
