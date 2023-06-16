@@ -9,15 +9,23 @@ export class DataStorageService {
   constructor(private http: HttpClient, private productListService: ProductListService) {}
 
   storeProducts() {
-    const products = this.productListService.products
-    this.http.put(environment.API_URL, products).subscribe()
+    let products: string[]
+    if(this.productListService.products) {
+      products = this.productListService.products
+      this.http.put(environment.API_URL, products).subscribe()
+    }
   }
 
   fetchProducts() {
     return this.http.get(environment.API_URL)
       .pipe(
         tap((products: string[]) => {
-          this.productListService.products = products}
+            if(!products) {
+              this.productListService.products = []
+            } else {
+              this.productListService.products = products
+            }
+          }
         )      
       )
   }
