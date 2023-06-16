@@ -15,7 +15,7 @@ export class AdditionFormComponent {
   
   onSubmit() {
     let product: string = this.productForm.controls.productName.value
-    this.productListService.updateProducts(product)
+    this.productListService.addProducts(product)
     this.dataStorageService.storeProducts()
     this.productForm.reset()
   }
