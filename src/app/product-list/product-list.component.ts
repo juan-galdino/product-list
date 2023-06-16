@@ -20,7 +20,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       } )   
   }
 
-  onEditItem(index: number) {
+  onDeleteItem(index: number) {
     this.productListService.deleteProductItem(index)
     this.dataStorageService.storeProducts()
   }

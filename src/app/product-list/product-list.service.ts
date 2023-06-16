@@ -16,7 +16,7 @@ export class ProductListService {
     this.productsChanged.next(this._products.slice())
   }
 
-  updateProducts( product: string ) {
+  addProducts( product: string ) {
     this._products.push(product)
     this.productsChanged.next(this._products.slice())
   }
