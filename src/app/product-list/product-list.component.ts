@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductListService } from './product-list.service';
-import { Subscription } from 'rxjs';
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class ProductListComponent implements OnInit{
   products: string[]
-  subscription: Subscription
   constructor(private productListService: ProductListService, private dataStorageService: DataStorageService) {}
 
   ngOnInit(): void {
