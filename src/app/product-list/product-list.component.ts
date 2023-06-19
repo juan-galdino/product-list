@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductListService } from './product-list.service';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from '../shared/data-storage.service';
@@ -8,24 +8,19 @@ import { DataStorageService } from '../shared/data-storage.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit{
   products: string[]
   subscription: Subscription
   constructor(private productListService: ProductListService, private dataStorageService: DataStorageService) {}
 
   ngOnInit(): void {
-    this.subscription = this.productListService.productsChanged
-      .subscribe( (products: string[]) => {
-        this.products = products
-      } )   
+    this.dataStorageService.fetchProducts().subscribe(products => {
+      this.products = products
+      this.productListService.products = products
+    })
   }
 
   onDeleteItem(index: number) {
     this.productListService.deleteProductItem(index)
-    this.dataStorageService.storeProducts()
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe()
   }
 }
