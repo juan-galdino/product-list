@@ -1,28 +1,31 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { DataStorageService } from "../shared/data-storage.service";
 
 @Injectable({providedIn: 'root'})
 export class ProductListService {
-  productsChanged = new Subject()
 
   private _products: string[]
   
-  get products () {
-    return this._products.slice()
-  }
+  constructor(private dataStorageService: DataStorageService){}
 
+  getProducts(): void {
+    this.dataStorageService.fetchProducts().subscribe(products => {
+      this._products = products
+    })
+  }
+  
   set products ( products: string[] ) {
     this._products = products
-    this.productsChanged.next(this._products.slice())
   }
 
-  addProducts( product: string ) {
+  addProducts( product: string ): void {
     this._products.push(product)
-    this.productsChanged.next(this._products.slice())
+    this.dataStorageService.storeProducts(this._products.slice())
   }
 
-  deleteProductItem(index: number) {
+  deleteProductItem(index: number): void {
     this._products.splice(index, 1)
-    this.productsChanged.next(this._products.slice())
+    this.dataStorageService.storeProducts(this._products.slice())
   }
 }
